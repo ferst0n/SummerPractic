@@ -6,7 +6,9 @@ import io.jmix.core.annotation.DeletedDate
 import io.jmix.core.entity.annotation.JmixGeneratedValue
 import io.jmix.core.entity.annotation.OnDelete
 import io.jmix.core.metamodel.annotation.Composition
+import io.jmix.core.metamodel.annotation.InstanceName
 import io.jmix.core.metamodel.annotation.JmixEntity
+import io.jmix.data.impl.lazyloading.NotInstantiatedList
 import org.springframework.data.annotation.CreatedBy
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedBy
@@ -23,20 +25,25 @@ open class Library {
     @Id
     var id: UUID? = null
 
-    @OnDelete(DeletePolicy.CASCADE)
-    @Composition
-    @OneToMany(mappedBy = "library")
-    var books: MutableList<Book> = mutableListOf()
+    @InstanceName
+    @Column(name = "NAME")
+    var name: String? = null
 
     @OnDelete(DeletePolicy.CASCADE)
     @Composition
     @OneToMany(mappedBy = "library")
-    var employees: MutableList<Employee> = mutableListOf()
+    var books: MutableList<Book> = NotInstantiatedList()
+        private set
 
-    @OnDelete(DeletePolicy.CASCADE)
-    @Composition
+    @JoinTable(name = "READER_LIBRARY_LINK",
+            joinColumns = [JoinColumn(name = "LIBRARY_ID")],
+            inverseJoinColumns = [JoinColumn(name = "READER_ID")])
+    @ManyToMany
+    var readers: MutableList<Reader> = NotInstantiatedList()
+
+
     @OneToMany(mappedBy = "library")
-    var readers: MutableList<Reader> = mutableListOf()
+    var employee: MutableList<Employee> = NotInstantiatedList()
 
     @Column(name = "VERSION", nullable = false)
     @Version

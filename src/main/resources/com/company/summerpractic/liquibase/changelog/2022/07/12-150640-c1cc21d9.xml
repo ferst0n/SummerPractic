@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.11.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="SummerPractic">
+        <createTable tableName="BOOK">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_BOOK"/>
+            </column>
+            <column name="TITLE" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AUTHOR" type="VARCHAR(255)"/>
+            <column name="COUNT_" type="INT"/>
+            <column name="LIBRARY_ID" type="UUID"/>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="DATETIME"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="DATETIME"/>
+            <column name="DELETED_BY" type="VARCHAR(255)"/>
+            <column name="DELETED_DATE" type="DATETIME"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="SummerPractic">
+        <createTable tableName="BOOKS_REGISTRATION_CARD">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_BOOKS_REGISTRATION_CARD"/>
+            </column>
+            <column name="BOOK_ID" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="GETTING_DATE" type="DATE"/>
+            <column name="RETURNED_DATE" type="DATE"/>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="DATETIME"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="DATETIME"/>
+            <column name="DELETED_BY" type="VARCHAR(255)"/>
+            <column name="DELETED_DATE" type="DATETIME"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="SummerPractic">
+        <createTable tableName="BOOKS_REGISTRATION_CARD_EMPLOYEE_LINK">
+            <column name="BOOKS_REGISTRATION_CARD_ID" type="UUID">
+                <constraints nullable="false" primaryKey="true"
+                             primaryKeyName="PK_BOOKS_REGISTRATION_CARD_EMPLOYEE_LINK"/>
+            </column>
+            <column name="EMPLOYEE_ID" type="UUID">
+                <constraints nullable="false" primaryKey="true"
+                             primaryKeyName="PK_BOOKS_REGISTRATION_CARD_EMPLOYEE_LINK"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="4" author="SummerPractic">
+        <createTable tableName="BOOKS_REGISTRATION_CARD_READER_LINK">
+            <column name="BOOKS_REGISTRATION_CARD_ID" type="UUID">
+                <constraints nullable="false" primaryKey="true"
+                             primaryKeyName="PK_BOOKS_REGISTRATION_CARD_READER_LINK"/>
+            </column>
+            <column name="READER_ID" type="UUID">
+                <constraints nullable="false" primaryKey="true"
+                             primaryKeyName="PK_BOOKS_REGISTRATION_CARD_READER_LINK"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="5" author="SummerPractic">
+        <createTable tableName="EMPLOYEE">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_EMPLOYEE"/>
+            </column>
+            <column name="FULL_NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LIBRARY_ID" type="UUID"/>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="DATETIME"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="DATETIME"/>
+            <column name="DELETED_BY" type="VARCHAR(255)"/>
+            <column name="DELETED_DATE" type="DATETIME"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="6" author="SummerPractic">
+        <createTable tableName="LIBRARY">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_LIBRARY"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)"/>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="DATETIME"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="DATETIME"/>
+            <column name="DELETED_BY" type="VARCHAR(255)"/>
+            <column name="DELETED_DATE" type="DATETIME"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="7" author="SummerPractic">
+        <createTable tableName="READER">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_READER"/>
+            </column>
+            <column name="FULL_NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="DATETIME"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="DATETIME"/>
+            <column name="DELETED_BY" type="VARCHAR(255)"/>
+            <column name="DELETED_DATE" type="DATETIME"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="8" author="SummerPractic">
+        <createTable tableName="READER_LIBRARY_LINK">
+            <column name="LIBRARY_ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_READER_LIBRARY_LINK"/>
+            </column>
+            <column name="READER_ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_READER_LIBRARY_LINK"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="9" author="SummerPractic">
+        <createIndex indexName="IDX_BOOKSREGISTRATIONCARD" tableName="BOOKS_REGISTRATION_CARD">
+            <column name="BOOK_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="BOOK_ID" baseTableName="BOOKS_REGISTRATION_CARD"
+                                 constraintName="FK_BOOKS_REGISTRATION_CARD_ON_BOOK" referencedColumnNames="ID"
+                                 referencedTableName="BOOK"/>
+    </changeSet>
+    <changeSet id="10" author="SummerPractic">
+        <createIndex indexName="IDX_BOOK_LIBRARY_ID" tableName="BOOK">
+            <column name="LIBRARY_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="LIBRARY_ID" baseTableName="BOOK" constraintName="FK_BOOK_ON_LIBRARY"
+                                 referencedColumnNames="ID" referencedTableName="LIBRARY"/>
+    </changeSet>
+    <changeSet id="11" author="SummerPractic">
+        <createIndex indexName="IDX_EMPLOYEE_LIBRARY_ID" tableName="EMPLOYEE">
+            <column name="LIBRARY_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="LIBRARY_ID" baseTableName="EMPLOYEE"
+                                 constraintName="FK_EMPLOYEE_ON_LIBRARY" referencedColumnNames="ID"
+                                 referencedTableName="LIBRARY"/>
+    </changeSet>
+    <changeSet id="12" author="SummerPractic">
+        <addForeignKeyConstraint baseColumnNames="BOOKS_REGISTRATION_CARD_ID"
+                                 baseTableName="BOOKS_REGISTRATION_CARD_EMPLOYEE_LINK"
+                                 constraintName="FK_BOOREGCAREMP_ON_BOOKS_REGISTRATION_CARD" referencedColumnNames="ID"
+                                 referencedTableName="BOOKS_REGISTRATION_CARD"/>
+    </changeSet>
+    <changeSet id="13" author="SummerPractic">
+        <addForeignKeyConstraint baseColumnNames="EMPLOYEE_ID" baseTableName="BOOKS_REGISTRATION_CARD_EMPLOYEE_LINK"
+                                 constraintName="FK_BOOREGCAREMP_ON_EMPLOYEE" referencedColumnNames="ID"
+                                 referencedTableName="EMPLOYEE"/>
+    </changeSet>
+    <changeSet id="14" author="SummerPractic">
+        <addForeignKeyConstraint baseColumnNames="BOOKS_REGISTRATION_CARD_ID"
+                                 baseTableName="BOOKS_REGISTRATION_CARD_READER_LINK"
+                                 constraintName="FK_BOOREGCARREA_ON_BOOKS_REGISTRATION_CARD" referencedColumnNames="ID"
+                                 referencedTableName="BOOKS_REGISTRATION_CARD"/>
+    </changeSet>
+    <changeSet id="15" author="SummerPractic">
+        <addForeignKeyConstraint baseColumnNames="READER_ID" baseTableName="BOOKS_REGISTRATION_CARD_READER_LINK"
+                                 constraintName="FK_BOOREGCARREA_ON_READER" referencedColumnNames="ID"
+                                 referencedTableName="READER"/>
+    </changeSet>
+    <changeSet id="16" author="SummerPractic">
+        <addForeignKeyConstraint baseColumnNames="LIBRARY_ID" baseTableName="READER_LIBRARY_LINK"
+                                 constraintName="FK_REALIB_ON_LIBRARY" referencedColumnNames="ID"
+                                 referencedTableName="LIBRARY"/>
+    </changeSet>
+    <changeSet id="17" author="SummerPractic">
+        <addForeignKeyConstraint baseColumnNames="READER_ID" baseTableName="READER_LIBRARY_LINK"
+                                 constraintName="FK_REALIB_ON_READER" referencedColumnNames="ID"
+                                 referencedTableName="READER"/>
+    </changeSet>
+</databaseChangeLog>

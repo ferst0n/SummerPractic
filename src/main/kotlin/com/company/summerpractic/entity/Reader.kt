@@ -5,6 +5,7 @@ import io.jmix.core.annotation.DeletedDate
 import io.jmix.core.entity.annotation.JmixGeneratedValue
 import io.jmix.core.metamodel.annotation.InstanceName
 import io.jmix.core.metamodel.annotation.JmixEntity
+import io.jmix.data.impl.lazyloading.NotInstantiatedList
 import org.springframework.data.annotation.CreatedBy
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedBy
@@ -14,9 +15,7 @@ import javax.persistence.*
 import javax.validation.constraints.NotNull
 
 @JmixEntity
-@Table(name = "READER", indexes = [
-    Index(name = "IDX_READER_LIBRARY_ID", columnList = "LIBRARY_ID")
-])
+@Table(name = "READER")
 @Entity
 open class Reader {
     @JmixGeneratedValue
@@ -60,7 +59,15 @@ open class Reader {
     @Temporal(TemporalType.TIMESTAMP)
     var deletedDate: Date? = null
 
-    @JoinColumn(name = "LIBRARY_ID", nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    var library: Library? = null
+    @JoinTable(name = "READER_LIBRARY_LINK",
+            joinColumns = [JoinColumn(name = "READER_ID")],
+            inverseJoinColumns = [JoinColumn(name = "LIBRARY_ID")])
+    @ManyToMany
+    var library: MutableList<Library> = NotInstantiatedList()
+
+    @JoinTable(name = "BOOKS_REGISTRATION_CARD_READER_LINK",
+            joinColumns = [JoinColumn(name = "READER_ID")],
+            inverseJoinColumns = [JoinColumn(name = "BOOKS_REGISTRATION_CARD_ID")])
+    @ManyToMany
+    var booksRegistrationCards: MutableList<BooksRegistrationCard> = NotInstantiatedList()
 }

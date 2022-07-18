@@ -5,6 +5,7 @@ import io.jmix.core.annotation.DeletedDate
 import io.jmix.core.entity.annotation.JmixGeneratedValue
 import io.jmix.core.metamodel.annotation.InstanceName
 import io.jmix.core.metamodel.annotation.JmixEntity
+import io.jmix.data.impl.lazyloading.NotInstantiatedList
 import org.springframework.data.annotation.CreatedBy
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedBy
@@ -15,8 +16,7 @@ import javax.validation.constraints.NotNull
 
 @JmixEntity
 @Table(name = "EMPLOYEE", indexes = [
-    Index(name = "IDX_EMPLOYEE_LIBRARY_ID", columnList = "LIBRARY_ID"),
-    Index(name = "IDX_EMPLOYEE", columnList = "REGISTRATION_CARD_ID")
+    Index(name = "IDX_EMPLOYEE_LIBRARY_ID", columnList = "LIBRARY_ID")
 ])
 @Entity
 open class Employee {
@@ -30,18 +30,19 @@ open class Employee {
     @NotNull
     var fullName: String? = null
 
+    @JoinTable(name = "BOOKS_REGISTRATION_CARD_EMPLOYEE_LINK",
+            joinColumns = [JoinColumn(name = "EMPLOYEE_ID")],
+            inverseJoinColumns = [JoinColumn(name = "BOOKS_REGISTRATION_CARD_ID")])
+    @ManyToMany
+    var booksRegistrationCards: MutableList<BooksRegistrationCard> = NotInstantiatedList()
+
+    @JoinColumn(name = "LIBRARY_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    var library: Library? = null
+
     @Column(name = "VERSION", nullable = false)
     @Version
     var version: Int? = null
-
-    @LastModifiedBy
-    @Column(name = "LAST_MODIFIED_BY")
-    var lastModifiedBy: String? = null
-
-    @LastModifiedDate
-    @Column(name = "LAST_MODIFIED_DATE")
-    @Temporal(TemporalType.TIMESTAMP)
-    var lastModifiedDate: Date? = null
 
     @CreatedBy
     @Column(name = "CREATED_BY")
@@ -52,6 +53,15 @@ open class Employee {
     @Temporal(TemporalType.TIMESTAMP)
     var createdDate: Date? = null
 
+    @LastModifiedBy
+    @Column(name = "LAST_MODIFIED_BY")
+    var lastModifiedBy: String? = null
+
+    @LastModifiedDate
+    @Column(name = "LAST_MODIFIED_DATE")
+    @Temporal(TemporalType.TIMESTAMP)
+    var lastModifiedDate: Date? = null
+
     @DeletedBy
     @Column(name = "DELETED_BY")
     var deletedBy: String? = null
@@ -61,11 +71,4 @@ open class Employee {
     @Temporal(TemporalType.TIMESTAMP)
     var deletedDate: Date? = null
 
-    @JoinColumn(name = "LIBRARY_ID", nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    var library: Library? = null
-
-    @JoinColumn(name = "REGISTRATION_CARD_ID", nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    var registrationCard: RegistrationCard? = null
 }

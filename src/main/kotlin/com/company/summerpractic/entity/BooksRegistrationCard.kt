@@ -1,53 +1,54 @@
 package com.company.summerpractic.entity
 
-import io.jmix.core.DeletePolicy
 import io.jmix.core.annotation.DeletedBy
 import io.jmix.core.annotation.DeletedDate
 import io.jmix.core.entity.annotation.JmixGeneratedValue
-import io.jmix.core.entity.annotation.OnDelete
-import io.jmix.core.metamodel.annotation.Composition
+import io.jmix.core.metamodel.annotation.InstanceName
 import io.jmix.core.metamodel.annotation.JmixEntity
+import io.jmix.data.impl.lazyloading.NotInstantiatedList
 import org.springframework.data.annotation.CreatedBy
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedBy
 import org.springframework.data.annotation.LastModifiedDate
-import java.time.LocalDateTime
+import java.time.LocalDate
 import java.util.*
 import javax.persistence.*
 import javax.validation.constraints.NotNull
 
 @JmixEntity
-@Table(name = "REGISTRATION_CARD")
+@Table(name = "BOOKS_REGISTRATION_CARD", indexes = [
+    Index(name = "IDX_BOOKSREGISTRATIONCARD", columnList = "BOOK_ID")
+])
 @Entity
-open class RegistrationCard {
+open class BooksRegistrationCard {
     @JmixGeneratedValue
     @Column(name = "ID", nullable = false)
     @Id
     var id: UUID? = null
 
-    @Column(name = "PICKED_UP_DATE", nullable = false)
+    @InstanceName
+    @JoinColumn(name = "BOOK_ID", nullable = false)
     @NotNull
-    var pickedUpDate: LocalDateTime? = null
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    var book: Book? = null
 
-    @OnDelete(DeletePolicy.CASCADE)
-    @JoinColumn(name = "READER_ID")
-    @Composition
-    @OneToOne(fetch = FetchType.LAZY)
-    var reader: Reader? = null
+    @JoinTable(name = "BOOKS_REGISTRATION_CARD_READER_LINK",
+            joinColumns = [JoinColumn(name = "BOOKS_REGISTRATION_CARD_ID")],
+            inverseJoinColumns = [JoinColumn(name = "READER_ID")])
+    @ManyToMany
+    var readers: MutableList<Reader> = NotInstantiatedList()
 
-    @OneToMany(mappedBy = "registrationCard")
-    @OnDelete(DeletePolicy.CASCADE)
-    @Composition
-    var employee: MutableList<Employee> = mutableListOf()
+    @JoinTable(name = "BOOKS_REGISTRATION_CARD_EMPLOYEE_LINK",
+            joinColumns = [JoinColumn(name = "BOOKS_REGISTRATION_CARD_ID")],
+            inverseJoinColumns = [JoinColumn(name = "EMPLOYEE_ID")])
+    @ManyToMany
+    var employees: MutableList<Employee> = NotInstantiatedList()
 
-    @OneToMany(mappedBy = "registrationCard")
-    @OnDelete(DeletePolicy.CASCADE)
-    @Composition
-    var books: MutableList<Book> = mutableListOf()
+    @Column(name = "GETTING_DATE")
+    var gettingDate: LocalDate? = null
 
-    @Column(name = "RETURN_DATE", nullable = false)
-    @NotNull
-    var returnDate: LocalDateTime? = null
+    @Column(name = "RETURNED_DATE")
+    var returnedDate: LocalDate? = null
 
     @Column(name = "VERSION", nullable = false)
     @Version

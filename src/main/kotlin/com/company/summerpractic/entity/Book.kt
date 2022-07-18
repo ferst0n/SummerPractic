@@ -15,8 +15,7 @@ import javax.validation.constraints.NotNull
 
 @JmixEntity
 @Table(name = "BOOK", indexes = [
-    Index(name = "IDX_BOOK_LIBRARY_ID", columnList = "LIBRARY_ID"),
-    Index(name = "IDX_BOOK_REGISTRATION_CARD_ID", columnList = "REGISTRATION_CARD_ID")
+    Index(name = "IDX_BOOK_LIBRARY_ID", columnList = "LIBRARY_ID")
 ])
 @Entity
 open class Book {
@@ -25,23 +24,20 @@ open class Book {
     @Id
     var id: UUID? = null
 
-    @Column(name = "AUTHOR", nullable = false)
-    @NotNull
-    var author: String? = null
-
     @InstanceName
     @Column(name = "TITLE", nullable = false)
     @NotNull
     var title: String? = null
 
-    @JoinColumn(name = "LIBRARY_ID", nullable = false)
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    var library: Library? = null
+    @Column(name = "AUTHOR")
+    var author: String? = null
 
-    @Column(name = "AMOUNT_IN_LIBRARY", nullable = false)
-    @NotNull
-    var amountInLibrary: Int? = null
+    @Column(name = "COUNT_")
+    var count: Int? = null
+
+    @JoinColumn(name = "LIBRARY_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    var library: Library? = null
 
     @Column(name = "VERSION", nullable = false)
     @Version
@@ -74,7 +70,4 @@ open class Book {
     @Temporal(TemporalType.TIMESTAMP)
     var deletedDate: Date? = null
 
-    @JoinColumn(name = "REGISTRATION_CARD_ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    var registrationCard: RegistrationCard? = null
 }
