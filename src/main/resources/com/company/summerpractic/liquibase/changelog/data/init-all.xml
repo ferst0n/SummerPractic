@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="1" author="SummerPractic">
+        <sql>
+
+            INSERT INTO public.library (id,name,version,created_by,created_date,last_modified_by,last_modified_date,deleted_by,deleted_date) VALUES ('7fa2ad7f-f339-72fa-e48c-302d0b770352','Пушкина',2,'admin','2022-07-12 15:10:49.032','admin','2022-07-14 18:40:30.768',NULL,NULL);
+            INSERT INTO public.library (id,name,version,created_by,created_date,last_modified_by,last_modified_date,deleted_by,deleted_date) VALUES ('ef89d207-783a-93a0-ff2a-99f8d7ea0165','Толстого',1,'admin','2022-07-15 15:09:27.513',NULL,'2022-07-15 15:09:27.513',NULL,NULL);
+
+            INSERT INTO public.book (id,title,author,count_,library_id,version,created_by,created_date,last_modified_by,last_modified_date,deleted_by,deleted_date) VALUES ('7029b448-6235-b7a4-cac9-21e1752d4adf','Повести Белкина','Пушкин',3,'7fa2ad7f-f339-72fa-e48c-302d0b770352',1,'admin','2022-07-12 15:19:13.14',NULL,'2022-07-12 15:19:13.14',NULL,NULL);
+            INSERT INTO public.book (id,title,author,count_,library_id,version,created_by,created_date,last_modified_by,last_modified_date,deleted_by,deleted_date) VALUES ('b7762c56-7f7e-7bcf-3f61-a9191ccbbff7','Война и Мир','Толстой',5,'ef89d207-783a-93a0-ff2a-99f8d7ea0165',1,'admin','2022-07-15 15:10:11.262',NULL,'2022-07-15 15:10:11.262',NULL,NULL);
+            INSERT INTO public.book (id,title,author,count_,library_id,version,created_by,created_date,last_modified_by,last_modified_date,deleted_by,deleted_date) VALUES ('e2ab147f-8a95-546b-d4b4-58f102d6564c','Война и Мир','Толстой',3,'7fa2ad7f-f339-72fa-e48c-302d0b770352',1,'admin','2022-07-15 15:02:35.314',NULL,'2022-07-15 15:02:35.314',NULL,NULL);
+            INSERT INTO public.book (id,title,author,count_,library_id,version,created_by,created_date,last_modified_by,last_modified_date,deleted_by,deleted_date) VALUES ('fe260b42-78c0-5d4e-8022-aff501ec995f','Повести Белкина','Пушкин',4,'ef89d207-783a-93a0-ff2a-99f8d7ea0165',1,'admin','2022-07-15 15:09:58.263',NULL,'2022-07-15 15:09:58.263',NULL,NULL);
+
+
+            INSERT INTO public.employee (id,full_name,library_id,version,created_by,created_date,last_modified_by,last_modified_date,deleted_by,deleted_date) VALUES ('17d18b3a-b7f4-ce99-20d1-38b1be35fd31','Сидоров Пётр','7fa2ad7f-f339-72fa-e48c-302d0b770352',1,'admin','2022-07-12 15:18:36.357',NULL,'2022-07-12 15:18:36.357',NULL,NULL);
+
+            INSERT INTO public.reader (id,full_name,version,created_by,created_date,last_modified_by,last_modified_date,deleted_by,deleted_date) VALUES ('2865d111-584d-5094-41ef-d685656265d6','Иванов Иван',1,'admin','2022-07-12 15:19:30.178',NULL,'2022-07-12 15:19:30.178',NULL,NULL);
+            INSERT INTO public.reader (id,full_name,version,created_by,created_date,last_modified_by,last_modified_date,deleted_by,deleted_date) VALUES ('d7ed6c39-cc10-d1cf-0e0c-363570eed08d','Петров Пётр',2,'admin','2022-07-15 14:23:23.648','admin','2022-07-15 17:16:37.365',NULL,NULL);
+
+            INSERT INTO public.books_registration_card (id,book_id,getting_date,returned_date,version,created_by,created_date,last_modified_by,last_modified_date,deleted_by,deleted_date) VALUES ('406d1070-b293-e4cf-12a8-be0ef9d6c80e','7029b448-6235-b7a4-cac9-21e1752d4adf','2022-07-11',NULL,5,'admin','2022-07-12 15:19:53.068','admin','2022-07-15 15:01:03.393',NULL,NULL);
+            INSERT INTO public.books_registration_card (id,book_id,getting_date,returned_date,version,created_by,created_date,last_modified_by,last_modified_date,deleted_by,deleted_date) VALUES ('ca213c92-fffe-bf1d-8aaf-27b475689e1a','e2ab147f-8a95-546b-d4b4-58f102d6564c',NULL,NULL,1,'admin','2022-07-15 15:35:08.568',NULL,'2022-07-15 15:35:08.568',NULL,NULL);
+            INSERT INTO public.books_registration_card (id,book_id,getting_date,returned_date,version,created_by,created_date,last_modified_by,last_modified_date,deleted_by,deleted_date) VALUES ('fbdbbfe2-dded-70ef-04ad-de745dd2adee','e2ab147f-8a95-546b-d4b4-58f102d6564c','2022-07-11',NULL,1,'admin','2022-07-19 15:05:11.081',NULL,'2022-07-19 15:05:11.081',NULL,NULL);
+
+            INSERT INTO public.books_registration_card_employee_link(books_registration_card_id,employee_id) VALUES ('406d1070-b293-e4cf-12a8-be0ef9d6c80e','17d18b3a-b7f4-ce99-20d1-38b1be35fd31');
+            INSERT INTO public.books_registration_card_reader_link (books_registration_card_id,reader_id) VALUES ('406d1070-b293-e4cf-12a8-be0ef9d6c80e','2865d111-584d-5094-41ef-d685656265d6');
+            INSERT INTO public.books_registration_card_reader_link (books_registration_card_id,reader_id) VALUES ('ca213c92-fffe-bf1d-8aaf-27b475689e1a','d7ed6c39-cc10-d1cf-0e0c-363570eed08d');
+            INSERT INTO public.books_registration_card_reader_link (books_registration_card_id,reader_id) VALUES ('fbdbbfe2-dded-70ef-04ad-de745dd2adee','2865d111-584d-5094-41ef-d685656265d6');
+
+            INSERT INTO public.reader_library_link (library_id,reader_id) VALUES ('7fa2ad7f-f339-72fa-e48c-302d0b770352','2865d111-584d-5094-41ef-d685656265d6');
+            INSERT INTO public.reader_library_link (library_id,reader_id) VALUES ('7fa2ad7f-f339-72fa-e48c-302d0b770352','d7ed6c39-cc10-d1cf-0e0c-363570eed08d');
+
+
+
+        </sql>
+    </changeSet>
+</databaseChangeLog>

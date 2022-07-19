@@ -41,7 +41,7 @@
             </column>
         </form>
         <groupBox id="booksRegistrationCardsBox"
-                  caption="msg://com.company.summerpractic.entity/Employee.booksRegistrationCards">
+                  caption="msg://Employee.booksRegistrationCards">
             <table id="booksRegistrationCardsTable" dataContainer="booksRegistrationCardsDc" width="100%"
                    height="200px">
                 <actions>

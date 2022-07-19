@@ -40,8 +40,7 @@ class BooksRegistrationCardEdit : StandardEditor<BooksRegistrationCard>() {
                                 )
                                 .show()
                         event.preventCommit()
-                    }else if (reader.id == registrationCardReader.id && editedEntity.book!!.library!!.id == registrationCard.book!!.library!!.id && registrationCard.returnedDate == null) {
-
+                    }else if (reader.id == registrationCardReader.id && editedEntity.book!!.library!!.id == registrationCard.book!!.library!!.id  && editedEntity.gettingDate != registrationCard.gettingDate && registrationCard.returnedDate == null) {
 //                        notifications.create().withCaption(mes.toString()).show()
                         dialogs.createOptionDialog()
                                 .withCaption("Confirmation")
@@ -52,18 +51,19 @@ class BooksRegistrationCardEdit : StandardEditor<BooksRegistrationCard>() {
                                 )
                                 .show()
                         event.preventCommit()
-                    }else if (reader.id == registrationCardReader.id && editedEntity.book!!.title == registrationCard.book!!.title && editedEntity!!.book!!.library!!.id != registrationCard!!.book!!.library!!.id) {
-//                        notifications.create().withCaption("Читатель уже взял данную книгу!").show()
-                        dialogs.createOptionDialog()
-                                .withCaption("Confirmation")
-                                .withMessage("Читатель не вернул данную книгу в другой библиотеке!")
-                                .withActions(
-                                        DialogAction(DialogAction.Type.OK).withHandler { e -> event.resume() },
-                                        DialogAction(DialogAction.Type.CANCEL)
-                                )
-                                .show()
-                        event.preventCommit()
                     }
+                    //                    else if (reader.id == registrationCardReader.id && editedEntity.book!!.title == registrationCard.book!!.title && editedEntity!!.book!!.library!!.id != registrationCard!!.book!!.library!!.id) {
+////                        notifications.create().withCaption("Читатель уже взял данную книгу!").show()
+//                        dialogs.createOptionDialog()
+//                                .withCaption("Confirmation")
+//                                .withMessage("Читатель не вернул данную книгу в другой библиотеке!")
+//                                .withActions(
+//                                        DialogAction(DialogAction.Type.OK).withHandler { e -> event.resume() },
+//                                        DialogAction(DialogAction.Type.CANCEL)
+//                                )
+//                                .show()
+//                        event.preventCommit()
+//                    }
     }
 
 
